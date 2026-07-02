@@ -70,6 +70,7 @@ test.describe('Beeceptor HTTP Callout Rule', () => {
   console.log('✅ Callout Rule form opened');
 });
 
+
     // STEP 5: Poora form JS se fill karo
     await test.step('Fill form using JS evaluate', async () => {
       await page.evaluate(({ triggerPath, calloutUrl }) => {
@@ -185,4 +186,5 @@ test.describe('Beeceptor HTTP Callout Rule', () => {
     });
 
   });
+  
 });
