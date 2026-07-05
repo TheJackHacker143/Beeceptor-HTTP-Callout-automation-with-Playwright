@@ -37,7 +37,7 @@ test.describe('Beeceptor HTTP Callout Rule', () => {
           sameSite: 'None'
         }
       ]);
-      console.log('✅ Cookies injected');
+      console.log('Cookies injected');
     });
 
     // STEP 2: Open the Beeceptor endpoint dashboard
@@ -46,7 +46,7 @@ test.describe('Beeceptor HTTP Callout Rule', () => {
       await page.goto(DASHBOARD_URL);
       await page.waitForLoadState('networkidle');
       await expect(page).toHaveURL(new RegExp(ENDPOINT));
-      console.log('✅ Dashboard loaded');
+      console.log('Dashboard loaded');
     });
 
     // STEP 3: Open the Mock Rules modal
@@ -54,7 +54,7 @@ test.describe('Beeceptor HTTP Callout Rule', () => {
     await test.step('Open Mock Rules', async () => {
       await page.locator('[data-bs-target=".allRules"]').first().click();
       await page.waitForTimeout(2000);
-      console.log('✅ Mock Rules opened');
+      console.log('Mock Rules opened');
     });
 
     // STEP 4: Open the New Callout Rule form
@@ -65,14 +65,14 @@ test.describe('Beeceptor HTTP Callout Rule', () => {
       const isVisible = await dropdownBtn.isVisible({ timeout: 5000 }).catch(() => false);
 
       if (!isVisible) {
-        throw new Error('Free plan rule limit reached! Please delete old rules from Mock Rules and run again.');
+        throw new Error('Free plan rule limit reached! Please delete old rules from Mock Rules and run again');
       }
 
       await dropdownBtn.click();
       await page.waitForTimeout(1000);
       await page.getByText('New Callout Rule').click();
       await page.waitForTimeout(3000);
-      console.log('✅ Callout Rule form opened');
+      console.log('Callout Rule form opened');
     });
 
     // STEP 5: Fill the callout rule form
@@ -134,7 +134,7 @@ test.describe('Beeceptor HTTP Callout Rule', () => {
       });
 
       await page.waitForTimeout(1500);
-      console.log('✅ Form filled via JS');
+      console.log('Form filled via JS');
     });
 
     // STEP 6: Save the callout rule
@@ -142,7 +142,7 @@ test.describe('Beeceptor HTTP Callout Rule', () => {
     await test.step('Save the rule', async () => {
       await page.getByRole('button', { name: /save/i }).click();
       await page.waitForTimeout(3000);
-      console.log('✅ Rule saved');
+      console.log('Rule saved');
     });
 
     // STEP 7: Trigger the callout rule by sending a real HTTP request
@@ -154,7 +154,7 @@ test.describe('Beeceptor HTTP Callout Rule', () => {
       });
       // We check that the response is not a server error (anything below 500 is acceptable)
       expect(response.status()).toBeLessThan(500);
-      console.log('✅ Request triggered, status:', response.status());
+      console.log('Request triggered, status:', response.status());
     });
 
     // STEP 8: Verify that the callout rule was created and is visible in Mock Rules
@@ -171,9 +171,9 @@ test.describe('Beeceptor HTTP Callout Rule', () => {
       var ruleExists = pageContent.includes(TRIGGER_PATH);
 
       if (ruleExists) {
-        console.log('✅ Rule verified - ' + TRIGGER_PATH + ' found in Mock Rules');
+        console.log('Rule verified - ' + TRIGGER_PATH + ' found in Mock Rules');
       } else {
-        console.log('⚠️ Rule path not found but callout was triggered successfully (status 200)');
+        console.log('Rule path not found but callout was triggered successfully (status 200)');
       }
 
       expect(true).toBeTruthy();
@@ -193,9 +193,9 @@ test.describe('Beeceptor HTTP Callout Rule', () => {
         if (await confirmBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
           await confirmBtn.click();
         }
-        console.log('✅ Rule deleted');
+        console.log('Rule deleted');
       } else {
-        console.log('⚠️ Delete button not found - manual cleanup needed');
+        console.log('Delete button not found - manual cleanup needed');
       }
     });
 
